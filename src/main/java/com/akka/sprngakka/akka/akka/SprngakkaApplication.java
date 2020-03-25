@@ -1,11 +1,14 @@
-package com.akka.sprngakka;
+package com.akka.sprngakka.akka.akka;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import com.akka.sprngakka.akka.PingAtor;
+import com.akka.sprngakka.akka.message.Mensagem;
+import com.typesafe.config.ConfigFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@EnableAutoConfiguration
 @SpringBootApplication
 public class SprngakkaApplication {
 
@@ -19,9 +22,7 @@ public class SprngakkaApplication {
 		ActorRef pingActor = system.actorOf(PingAtor.props(), "ping");
 
 		//Envia a msg
-		pingActor.tell(new PingAtor.Initialize(), null);
+		pingActor.tell(new Mensagem.envia("Ping"), null);
 
-		//Pega quando os métodos de print acabarem.
-		system.getWhenTerminated();
 	}
 }
