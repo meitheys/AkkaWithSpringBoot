@@ -1,15 +1,16 @@
 package com.akka.sprngakka.akka.akka;
 
-import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.Props;
-import akka.actor.UntypedAbstractActor;
+import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import akka.io.Tcp;
+import akka.remote.RemoteActorRef;
+import akka.remote.RemoteScope;
 import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.pong.PongAtor;
-import org.springframework.beans.factory.annotation.Value;
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
+
+import java.io.File;
 
 public class PingAtor extends AbstractActor {
 
@@ -26,6 +27,8 @@ public class PingAtor extends AbstractActor {
     //Cria ator Pong
     private ActorRef pongActor = getContext().actorOf(PongAtor.props(), "Pong");
 
+    ActorSelection selection =
+            context().actorSelection("akka.tcp://Pong@127.0.0.1:5150");
 
     @Override
     public Receive createReceive() {
@@ -42,7 +45,7 @@ public class PingAtor extends AbstractActor {
     private void inicio(Mensagem.envia mensagemEnvia) {
         // cria doc
         log.info(mensagemEnvia + " foi enviado");
-        pongActor.tell(mensagemEnvia.recebe(), getSelf());
+        selection.tell(mensagemEnvia.recebe(), getSelf());
     }
 }
 

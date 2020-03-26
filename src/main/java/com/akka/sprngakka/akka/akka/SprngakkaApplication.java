@@ -16,10 +16,10 @@ public class SprngakkaApplication {
 		SpringApplication.run(SprngakkaApplication.class, args);
 
 		//Criando ATOR "SISTEMA"
-		ActorSystem system = ActorSystem.create("Sistema");
+		ActorSystem system = ActorSystem.create("SistemaPing");
 
 		//Criando ATOR 'ping', com as propriedades da classe PingActor
-		ActorRef pingActor = system.actorOf(PingAtor.props(), "ping");
+		ActorRef pingActor = system.actorOf(PingAtor.props(), "ping") ;
 
 		//Envia a msg
 		pingActor.tell(new Mensagem.envia("Ping"), null);
