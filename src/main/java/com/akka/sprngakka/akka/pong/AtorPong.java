@@ -5,16 +5,14 @@ import akka.actor.Props;
 import akka.actor.UntypedAbstractActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import com.akka.sprngakka.akka.ping.AtorPing;
 import com.akka.sprngakka.akka.message.Mensagem;
+import com.akka.sprngakka.akka.ping.AtorPing;
 
 import java.io.Serializable;
 
-public class AtorPong extends UntypedAbstractActor{
+public class AtorPong extends UntypedAbstractActor implements Serializable {
 
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
-
-
 
     private int contador = 0;
     private ActorRef atorPing = getContext().actorOf(Props.create(AtorPing.class), "AtorPing");

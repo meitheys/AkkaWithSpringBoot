@@ -7,10 +7,11 @@ import com.akka.sprngakka.akka.message.Mensagem;
 
 import java.io.Serializable;
 
-public class AtorPing extends UntypedAbstractActor{
+
+public class AtorPing extends UntypedAbstractActor implements Serializable {
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
 
-    private ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/atores/AtorPong");
+    private ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/user/AtorPong");
 
     public void onReceive(Object msg) throws Exception {
         if (msg instanceof Mensagem.Iniciar) {
