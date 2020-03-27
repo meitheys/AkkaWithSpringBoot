@@ -1,29 +1,33 @@
 package com.akka.sprngakka.akka.message;
 
+import java.io.Serializable;
+
 public class Mensagem {
 
-    public static class envia {
+    public static class Iniciar {
+    }
 
-        private  String text;
+    public static class PingMsg implements Serializable {
+        private final String mensagem;
 
-        public envia(String text) {
-            this.text = text;
+        public PingMsg(String mensagem) {
+            this.mensagem = mensagem;
         }
 
-        public String recebe() {
-            return text;
+        public String getMensagem() {
+            return mensagem;
         }
     }
 
-    public static class reenvia {
-        private  String text;
+    public static class PongMsg implements Serializable {
+        private final String mensagem;
 
-        public reenvia(String text) {
-            this.text = text;
+        public PongMsg(String mensagem) {
+            this.mensagem = mensagem;
         }
 
-        public String recebe() {
-            return text;
+        public String getMensagem() {
+            return mensagem;
         }
     }
 }
