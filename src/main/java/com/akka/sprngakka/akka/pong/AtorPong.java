@@ -24,10 +24,10 @@ public class AtorPong extends UntypedAbstractActor implements Serializable {
             Mensagem.PingMsg atorPing = (Mensagem.PingMsg) msg;
             //mostra a mensagem enviado do AtorPing para o AtorPong no console
             loggingAdapter.info("Recebendo: " + atorPing.getMensagem());
-            loggingAdapter.info("Enviando: " + atorPing.getMensagem());
+            loggingAdapter.info("Show: " + atorPing.getMensagem());
             //inforna a mensagem que o AtorPong esta passando
             contador += 1;
-            if (contador == 3) {
+            if (contador == 5) {
                 getContext().system().terminate();
             } else {
                 getSender().tell(new Mensagem.PongMsg("Pong"), getSelf());

@@ -18,7 +18,7 @@ public class AtorPing extends UntypedAbstractActor implements Serializable {
             loggingAdapter.info("Iniciando o ping-pong");
 
             //Enviando para Pong
-            atorPong.tell(new Mensagem.PingMsg("Ping novo"), getSelf());
+            atorPong.tell(new Mensagem.PingMsg("Ping"), getSelf());
 
             //Se mensagem for do Pong
         } else if (msg instanceof Mensagem.PongMsg) {
@@ -28,7 +28,7 @@ public class AtorPing extends UntypedAbstractActor implements Serializable {
 
             //Imprime a msg
             loggingAdapter.info("Recebendo: " + atorPong.getMensagem());
-            loggingAdapter.info("Enviando: {}  ", atorPong.getMensagem());
+            loggingAdapter.info("Show: {}  ", atorPong.getMensagem());
         }
     }
 }
