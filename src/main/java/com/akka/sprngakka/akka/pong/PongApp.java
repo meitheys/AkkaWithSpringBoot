@@ -12,7 +12,7 @@ public class PongApp {
 
 	public static void main(String[] args) {
 
-		// Criação de um Actor System, container Akka.
+		//Criando um Actor System
 		ActorSystem system = ActorSystem.create("RemotePong", ConfigFactory.load().getConfig("RemotePong"));
 
 		//Criando ator PONG

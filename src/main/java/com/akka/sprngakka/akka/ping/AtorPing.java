@@ -11,9 +11,13 @@ import java.io.Serializable;
 public class AtorPing extends UntypedAbstractActor implements Serializable {
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
 
+    //Remote
     private ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/user/AtorPong");
 
+    //Ao Receber
     public void onReceive(Object msg) throws Exception {
+
+        //Se mensagem for do tipo iniciar
         if (msg instanceof Mensagem.Iniciar) {
             loggingAdapter.info("Iniciando o ping-pong");
 
@@ -24,11 +28,11 @@ public class AtorPing extends UntypedAbstractActor implements Serializable {
         } else if (msg instanceof Mensagem.PongMsg) {
 
             //Pega MSG
-            Mensagem.PongMsg atorPong = (Mensagem.PongMsg) msg;
+            Mensagem.PongMsg pingMessage = (Mensagem.PongMsg) msg;
 
             //Imprime a msg
-            loggingAdapter.info("Recebendo: " + atorPong.getMensagem());
-            loggingAdapter.info("Show: {}  ", atorPong.getMensagem());
+            loggingAdapter.info("Recebendo: " + pingMessage.getMensagem());
+
         }
     }
 }
