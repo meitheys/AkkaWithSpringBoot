@@ -1,16 +1,14 @@
 package com.akka.sprngakka.akka.pong;
 
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
-import akka.actor.Props;
 import akka.actor.UntypedAbstractActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.message.Mensagem;
-import com.akka.sprngakka.akka.ping.AtorPing;
+import com.akka.sprngakka.akka.spring.AtorGenerico;
 
 import java.io.Serializable;
 
+@AtorGenerico
 public class AtorPong extends UntypedAbstractActor implements Serializable {
 
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);

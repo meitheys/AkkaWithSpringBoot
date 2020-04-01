@@ -4,13 +4,16 @@ import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.message.Mensagem;
+import com.akka.sprngakka.akka.spring.AtorGenerico;
 
 import java.io.Serializable;
 
-
+@AtorGenerico
 public class AtorPing extends UntypedAbstractActor implements Serializable {
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
 
+
+    //Trocar Serializable para ProtoBuff
     //Remote
     private ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/user/AtorPong");
 
