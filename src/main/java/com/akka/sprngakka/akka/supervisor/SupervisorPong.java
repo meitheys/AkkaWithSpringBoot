@@ -25,7 +25,7 @@ public class SupervisorPong extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder().matchAny(new FI.UnitApply<Object>() {
             @Override
-            public void apply(Object any) throws Exception {
+            public void apply(Object any) throws MinhaExcessao {
                 childActor.forward(any, SupervisorPong.this.getContext());
             }
         }).build();
