@@ -5,6 +5,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
+import com.akka.sprngakka.akka.supervisor.Persistencia;
 
 import java.io.Serializable;
 
