@@ -5,12 +5,9 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
-import com.akka.sprngakka.akka.supervisor.Persistencia;
-
-import java.io.Serializable;
 
 @AtorGenerico
-public class AtorPong extends UntypedAbstractActor implements Serializable {
+public class AtorPong extends UntypedAbstractActor{
 
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
 

@@ -5,15 +5,32 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
-
-import java.io.Serializable;
+import scala.concurrent.duration.Duration;
 
 @AtorGenerico
-public class AtorPing extends UntypedAbstractActor implements Serializable {
+public class AtorPing extends UntypedAbstractActor {
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
 
+    public SupervisorStrategy strategy =
+            new OneForOneStrategy(3, Duration.create("5 seconds"),
+                    new akka.japi.Function<Throwable, SupervisorStrategy.Directive>() {
+                        @Override
+                        public SupervisorStrategy.Directive apply(Throwable e) {
+                            if (e instanceof NullPointerException) {
+                                loggingAdapter.info("Erro: " + e.getMessage(), e);
+                                return SupervisorStrategy.restart();
+                            } else {
+                                loggingAdapter.info("Escalando");
+                                return SupervisorStrategy.escalate();
+                            }
+                        }
+                    });
 
-    //Trocar Serializable para ProtoBuff
+    @Override
+    public SupervisorStrategy supervisorStrategy() {
+        return strategy;
+    }
+
     //Remote
     private ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/user/AtorPong");
 
@@ -35,7 +52,6 @@ public class AtorPing extends UntypedAbstractActor implements Serializable {
 
             //Imprime a msg
             loggingAdapter.info("Recebendo: " + pingMessage.getMensagem());
-
         }
     }
 }

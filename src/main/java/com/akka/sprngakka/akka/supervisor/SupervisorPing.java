@@ -2,6 +2,8 @@ package com.akka.sprngakka.akka.supervisor;
 
 
 import akka.actor.*;
+import akka.event.Logging;
+import akka.event.LoggingAdapter;
 import akka.japi.Function;
 import akka.japi.pf.FI;
 import com.akka.sprngakka.akka.ping.AtorPing;
@@ -18,7 +20,7 @@ public class SupervisorPing extends AbstractActor {
 
     //Persistencia do supervisor.
     private static SupervisorStrategy strategy = new OneForOneStrategy(5,
-            Duration.create("10s"), new Function<Throwable, SupervisorStrategy.Directive>() {
+            Duration.create("5s"), new Function<Throwable, SupervisorStrategy.Directive>() {
         public SupervisorStrategy.Directive apply(Throwable t) {
 
             //Continua outras atividades mesmo se uma falhar
