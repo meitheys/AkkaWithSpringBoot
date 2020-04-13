@@ -3,26 +3,27 @@ package com.akka.sprngakka.akka.ping;
 import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import akka.stream.impl.FanIn;
 import com.akka.sprngakka.akka.message.Mensagem;
+import com.akka.sprngakka.akka.message.TratamentoErro;
+import com.akka.sprngakka.akka.pong.AtorPong;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
 import scala.concurrent.duration.Duration;
 
 @AtorGenerico
 public class AtorPing extends UntypedAbstractActor {
+
     LoggingAdapter loggingAdapter = Logging.getLogger(getContext().system(), this);
 
     public SupervisorStrategy strategy =
-            new OneForOneStrategy(3, Duration.create("5 seconds"),
-                    new akka.japi.Function<Throwable, SupervisorStrategy.Directive>() {
-                        @Override
-                        public SupervisorStrategy.Directive apply(Throwable e) {
-                            if (e instanceof NullPointerException) {
-                                loggingAdapter.info("Erro: " + e.getMessage(), e);
-                                return SupervisorStrategy.restart();
-                            } else {
-                                loggingAdapter.info("Escalando");
-                                return SupervisorStrategy.escalate();
-                            }
+            new OneForOneStrategy(20, Duration.create("10 seconds"),
+                    e -> {
+                        if (e instanceof NullPointerException) {
+                            loggingAdapter.info("Erro: " + e.getMessage(), e);
+                            return SupervisorStrategy.restart();
+                        } else {
+                            loggingAdapter.info("Escalando");
+                            return SupervisorStrategy.escalate();
                         }
                     });
 
@@ -34,9 +35,10 @@ public class AtorPing extends UntypedAbstractActor {
     //Remote
     private ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/user/AtorPong");
 
+    private ActorRef atorErro =  getContext().actorOf(Props.create(AtorErro.class), "AtorErro");
+
     //Ao Receber
     public void onReceive(Object msg) throws Exception {
-
         //Se mensagem for do tipo iniciar
         if (msg instanceof Mensagem.Iniciar) {
             loggingAdapter.info("Iniciando o ping-pong");
@@ -52,6 +54,18 @@ public class AtorPing extends UntypedAbstractActor {
 
             //Imprime a msg
             loggingAdapter.info("Recebendo: " + pingMessage.getMensagem());
+
+        } else if (msg instanceof TratamentoErro.Erro) {
+
+            //Imprime a msg
+            loggingAdapter.info("Tratando Erro");
+
+            atorPong.tell(new Mensagem.PingMsg("Erro durante troca de mensagens"), getSelf());
+
+        }else{
+            atorErro.tell(new TratamentoErro.Erro("Erro"), getSelf());
+            this.postRestart(null);
+            unhandled(msg);
         }
     }
 }

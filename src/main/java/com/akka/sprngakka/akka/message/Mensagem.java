@@ -5,12 +5,12 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 
 @Service
-public class Mensagem{
+public class Mensagem implements Serializable {
 
     public static class Iniciar {
     }
 
-    public static class PongMsg{
+    public static class PongMsg implements Serializable {
         private final String mensagem;
 
         public PongMsg(String mensagem) {
@@ -22,7 +22,8 @@ public class Mensagem{
         }
     }
 
-    public static class PingMsg{
+    public static class PingMsg implements Serializable {
+
         private final String mensagem;
 
         public PingMsg(String mensagem) {
@@ -32,5 +33,19 @@ public class Mensagem{
         public String getMensagem() {
             return mensagem;
         }
+
+        public static class Error {
+            private NullPointerException mensagem;
+
+            public Error(NullPointerException mensagem) {
+                this.mensagem = mensagem;
+            }
+
+            public NullPointerException getMensagem() {
+                return mensagem;
+            }
+        }
+
     }
+
 }
