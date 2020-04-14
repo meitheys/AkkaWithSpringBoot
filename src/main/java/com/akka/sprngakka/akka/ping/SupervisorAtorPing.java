@@ -12,15 +12,18 @@ import scala.concurrent.duration.Duration;
 @AtorGenerico
 public class SupervisorAtorPing extends AbstractActor{
 
+    //Três opções de nivel para a mensagem retornar em 'X' ator
+
     final ActorRef pongPrimarioS = getContext().actorOf(Props.create(AtorPing.class), "pongPrimarioS");
     final ActorRef pongSecundarioS = getContext().actorOf(Props.create(AtorPing.class), "pongSecundarioS");
     final ActorRef pongTercearioS = getContext().actorOf(Props.create(AtorPing.class), "pongTercearioS");
+
+    //Life-Cicle
 
     private static SupervisorStrategy strategy = new OneForOneStrategy(3,
             Duration.create("10 second"), new Function<Throwable, SupervisorStrategy.Directive>() {
         public SupervisorStrategy.Directive apply(Throwable t) {
             return OneForOneStrategy.resume();
-
         }
     });
 
