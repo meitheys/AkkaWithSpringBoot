@@ -5,7 +5,6 @@ import akka.actor.Props;
 import com.akka.sprngakka.akka.ping.PingApp;
 import com.akka.sprngakka.akka.spring.Extender;
 import com.akka.sprngakka.akka.spring.Propriedades;
-import com.akka.sprngakka.akka.supervisor.SupervisorPong;
 import com.typesafe.config.ConfigFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
