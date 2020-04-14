@@ -44,7 +44,7 @@ public class AtorPing extends UntypedAbstractActor {
             loggingAdapter.info("Iniciando o ping-pong");
 
             //Enviando para Pong
-            atorPong.tell(new Mensagem.PingMsg("Ping"), getSelf());
+            atorPong.tell(new Mensagem.PingMsg("Ping", 2), getSelf());
 
             //Se mensagem for do Pong
         } else if (msg instanceof Mensagem.PongMsg) {
@@ -53,18 +53,18 @@ public class AtorPing extends UntypedAbstractActor {
             Mensagem.PongMsg pingMessage = (Mensagem.PongMsg) msg;
 
             //Imprime a msg
-            loggingAdapter.info("Recebendo: " + pingMessage.getMensagem());
+            loggingAdapter.info("Recebendo: " + pingMessage.getMensagem() + ", do nivel: " + pingMessage.getNivel());
 
-        } else if (msg instanceof TratamentoErro.Erro) {
-
-            //Imprime a msg
-            loggingAdapter.info("Tratando Erro");
-
-            atorPong.tell(new Mensagem.PingMsg("Erro durante troca de mensagens"), getSelf());
+//        } else if (msg instanceof TratamentoErro.Erro) {
+//
+//            //Imprime a msg
+//            loggingAdapter.info("Tratando Erro");
+//
+//            atorPong.tell(new Mensagem.PingMsg("Erro durante troca de mensagens"), getSelf());
 
         }else{
-            atorErro.tell(new TratamentoErro.Erro("Erro"), getSelf());
-            this.postRestart(null);
+//            atorErro.tell(new TratamentoErro.Erro("Erro"), getSelf());
+//            this.postRestart(null);
             unhandled(msg);
         }
     }

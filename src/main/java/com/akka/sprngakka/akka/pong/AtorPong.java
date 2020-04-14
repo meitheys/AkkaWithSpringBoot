@@ -33,7 +33,7 @@ public class AtorPong extends UntypedAbstractActor{
             loggingAdapter.info("Recebendo: " + pingMessage.getMensagem());
 
             //Pega quem enviou a mensagem anterior e re-envia "Pong"
-            getSender().tell(new Mensagem.PongMsg("Pong"), getSelf());
+            getSender().tell(new Mensagem.PongMsg("Pong", 2), getSelf());
         } else {
             //Se mensagem não for tratada
             unhandled(msg);

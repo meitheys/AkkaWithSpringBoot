@@ -12,9 +12,15 @@ public class Mensagem implements Serializable {
 
     public static class PongMsg implements Serializable {
         private final String mensagem;
+        private final int nivel;
 
-        public PongMsg(String mensagem) {
+        public PongMsg(String mensagem, int nivel) {
+            this.nivel = nivel;
             this.mensagem = mensagem;
+        }
+
+        public int getNivel() {
+            return nivel;
         }
 
         public String getMensagem() {
@@ -23,11 +29,16 @@ public class Mensagem implements Serializable {
     }
 
     public static class PingMsg implements Serializable {
-
         private final String mensagem;
+        private final int nivel;
 
-        public PingMsg(String mensagem) {
+        public PingMsg(String mensagem, int nivel) {
+            this.nivel = nivel;
             this.mensagem = mensagem;
+        }
+
+        public int getNivel() {
+            return nivel;
         }
 
         public String getMensagem() {
