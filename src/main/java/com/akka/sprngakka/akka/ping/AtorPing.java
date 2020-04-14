@@ -8,6 +8,7 @@ import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.message.TratamentoErro;
 import com.akka.sprngakka.akka.pong.AtorPong;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
+import protobuf.PingMsg;
 import scala.concurrent.duration.Duration;
 
 @AtorGenerico
@@ -43,8 +44,11 @@ public class AtorPing extends UntypedAbstractActor {
         if (msg instanceof Mensagem.Iniciar) {
             loggingAdapter.info("Iniciando o ping-pong");
 
+            PingMsg pingMensagemProto = PingMsg.newBuilder().setMensagem("Ping").setNivel(2).build();
+
             //Enviando para Pong
-            atorPong.tell(new Mensagem.PingMsg("Ping", 2), getSelf());
+//            atorPong.tell(new Mensagem.PingMsg("Ping", 2), getSelf());
+            atorPong.tell(pingMensagemProto, getSelf());
 
             //Se mensagem for do Pong
         } else if (msg instanceof Mensagem.PongMsg) {

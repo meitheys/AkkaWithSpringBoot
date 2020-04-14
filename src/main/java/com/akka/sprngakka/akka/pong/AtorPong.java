@@ -5,6 +5,9 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
+import protobuf.PongMsg;
+
+import java.util.Random;
 
 @AtorGenerico
 public class AtorPong extends UntypedAbstractActor{
@@ -26,14 +29,21 @@ public class AtorPong extends UntypedAbstractActor{
     public void onReceive(Object msg) throws Exception {
         if (msg instanceof Mensagem.PingMsg) {
 
+            Random random = new Random();
+
+            int valor = random.nextInt(3);
+
             //Msg do Ping
             Mensagem.PingMsg pingMessage = (Mensagem.PingMsg) msg;
 
             //Imprimindo
-            loggingAdapter.info("Recebendo: " + pingMessage.getMensagem());
+            loggingAdapter.info("Recebendo: " + pingMessage.getMensagem() + ", do nivel: " + pingMessage.getNivel());
 
             //Pega quem enviou a mensagem anterior e re-envia "Pong"
-            getSender().tell(new Mensagem.PongMsg("Pong", 2), getSelf());
+
+            PongMsg pongMensagemProto = PongMsg.newBuilder().setMensagem("Pong").setNivel(2).build();
+
+            getSender().tell(pongMensagemProto, getSelf());
         } else {
             //Se mensagem não for tratada
             unhandled(msg);

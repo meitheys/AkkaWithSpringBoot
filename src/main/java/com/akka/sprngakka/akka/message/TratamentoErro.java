@@ -2,12 +2,10 @@ package com.akka.sprngakka.akka.message;
 
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-
 @Service
-public class TratamentoErro implements Serializable {
+public class TratamentoErro{
 
-    public static class Erro implements Serializable {
+    public static class Erro{
         private final String mensagem;
 
         public Erro(String mensagem) {
