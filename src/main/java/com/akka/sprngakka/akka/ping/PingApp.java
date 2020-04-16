@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import protobuf.Iniciar;
 
 import javax.annotation.PostConstruct;
 
@@ -35,7 +36,7 @@ public class PingApp {
 			ActorRef actorRef = system.actorOf(Props.create(AtorPing.class));
 
 			// Enviando a mensagem ao ator
-			actorRef.tell(new Mensagem.Iniciar(), null);
+			actorRef.tell(Iniciar.newBuilder().build(), null);
 
 			system.getWhenTerminated();
 		}

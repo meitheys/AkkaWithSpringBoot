@@ -7,6 +7,9 @@ import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.pong.AtorPong;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
 
+import protobuf.Iniciar;
+import protobuf.PingMsg;
+import protobuf.PongMsg;
 import scala.concurrent.duration.Duration;
 
 @AtorGenerico
@@ -19,7 +22,6 @@ public class SupervisorAtorPing extends AbstractActor{
     final ActorRef pongTercearioS = getContext().actorOf(Props.create(AtorPing.class), "pongTercearioS");
 
     //Life-Cicle
-
     private static SupervisorStrategy strategy = new OneForOneStrategy(3,
             Duration.create("10 second"), new Function<Throwable, SupervisorStrategy.Directive>() {
         public SupervisorStrategy.Directive apply(Throwable t) {
@@ -37,16 +39,18 @@ public class SupervisorAtorPing extends AbstractActor{
         return receiveBuilder().matchAny(new FI.UnitApply<Object>() {
             @Override
             public void apply(Object any) throws Exception {
-                if (any instanceof Mensagem.Iniciar) {
+                if (any instanceof Iniciar) {
 
                     //Remote Pong
                     ActorSelection atorPong = getContext().actorSelection("akka.tcp://RemotePong@127.0.0.1:5150/user/AtorPong");
 
+                    PingMsg pingMsg = PingMsg.newBuilder().setMensagem("Ping").setNivel(1).build();
+
                     //Mensagem
-                    atorPong.tell(new Mensagem.PingMsg("Ping", 2), getSelf());
+                    atorPong.tell(pingMsg, getSelf());
                 }
-                if (any instanceof Mensagem.PongMsg) {
-                    Mensagem.PongMsg msg = (Mensagem.PongMsg) any;
+                if (any instanceof PongMsg) {
+                    PongMsg msg = (PongMsg) any;
                     String mensagem = msg.getMensagem() + msg.getNivel();
 
                     /*

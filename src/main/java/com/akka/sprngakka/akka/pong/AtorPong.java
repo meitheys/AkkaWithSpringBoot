@@ -3,7 +3,6 @@ package com.akka.sprngakka.akka.pong;
 import akka.actor.UntypedAbstractActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
 import protobuf.PingMsg;
 import protobuf.PongMsg;

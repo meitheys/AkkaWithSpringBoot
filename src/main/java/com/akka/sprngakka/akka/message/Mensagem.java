@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class Mensagem{
 
-    public static class Iniciar {
+    /*public static class Iniciar {
     }
 
     public static class PongMsg{
@@ -54,5 +54,5 @@ public class Mensagem{
                 return mensagem;
             }
         }
-    }
+    }*/
 }

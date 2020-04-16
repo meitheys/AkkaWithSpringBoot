@@ -6,6 +6,9 @@ option java_package = "akka";
 option java_outer_classname = "MsgProto";
 option java_multiple_files = true;
 
+message Iniciar{
+}
+
 message PingMsg{
      string mensagem = 1;
      int32 nivel = 2;
@@ -19,4 +22,5 @@ message PongMsg{
 message Mensagem{
      PingMsg pingMsg = 1;
      PongMsg pongMsg = 2;
+     Iniciar init = 3;
 }
