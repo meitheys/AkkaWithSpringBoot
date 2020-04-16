@@ -3,9 +3,7 @@ package com.akka.sprngakka.akka.pong;
 import akka.actor.*;
 import akka.japi.Function;
 import akka.japi.pf.FI;
-import com.akka.sprngakka.akka.message.Mensagem;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
-
 import protobuf.PingMsg;
 import scala.concurrent.duration.Duration;
 

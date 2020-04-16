@@ -3,10 +3,7 @@ package com.akka.sprngakka.akka.ping;
 import akka.actor.*;
 import akka.japi.Function;
 import akka.japi.pf.FI;
-import com.akka.sprngakka.akka.message.Mensagem;
-import com.akka.sprngakka.akka.pong.AtorPong;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
-
 import protobuf.Iniciar;
 import protobuf.PingMsg;
 import protobuf.PongMsg;

@@ -1,12 +1,12 @@
 package com.akka.sprngakka.akka.ping;
 
-import akka.actor.*;
+import akka.actor.ActorSelection;
+import akka.actor.UntypedAbstractActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.akka.sprngakka.akka.spring.AtorGenerico;
 import protobuf.PingMsg;
 import protobuf.PongMsg;
-import scala.concurrent.duration.Duration;
 
 @AtorGenerico
 public class AtorPing extends UntypedAbstractActor {

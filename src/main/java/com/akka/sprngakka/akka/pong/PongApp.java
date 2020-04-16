@@ -2,16 +2,13 @@ package com.akka.sprngakka.akka.pong;
 
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import com.akka.sprngakka.akka.ping.PingApp;
 import com.akka.sprngakka.akka.spring.Extender;
-import com.akka.sprngakka.akka.spring.Propriedades;
 import com.typesafe.config.ConfigFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.annotation.PostConstruct;
 
