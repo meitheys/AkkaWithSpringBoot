@@ -23,7 +23,6 @@ public class PongApp {
 		SpringApplication.run(PongApp.class, args);
 	}
 
-
 	@PostConstruct
 	void iniciarPong() {
 		//Criando um Actor System
